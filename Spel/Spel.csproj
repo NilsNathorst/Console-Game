@@ -47,6 +47,8 @@
     <Compile Include="Armor.cs" />
     <Compile Include="Armory.cs" />
     <Compile Include="Infirmary.cs" />
+    <Compile Include="Skillpoints.cs" />
+    <Compile Include="Training.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Gladiator.cs" />
     <Compile Include="TextHandler.cs" />

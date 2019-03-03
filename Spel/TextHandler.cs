@@ -36,7 +36,7 @@ namespace Spel
         public static void PrintHeaderText(string value)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            PrintCenteredText(value.ToUpper(), 5);
+            PrintCenteredText(value.ToUpper(), 10);
             Console.ResetColor();
         }
         public static void PrintWeaponInfo(Weapon weapon)
@@ -53,7 +53,7 @@ namespace Spel
             Console.ForegroundColor = ConsoleColor.Red;
             PrintCenteredText($"== {armor.name} ==");
             Console.ResetColor();
-            PrintCenteredText($"Defence: {armor.defence}");
+            PrintCenteredText($"Armor: {armor.armor}");
             PrintCenteredText($"Cost: {armor.Cost}");
         }
         public static void PrintGladiatorStats(Gladiator gladiator, bool npc, string location = "")
@@ -78,18 +78,18 @@ namespace Spel
             LeftAlignText($"Attack: {gladiator.attack}");
             LeftAlignText($"Defence: {gladiator.defence}");
             LeftAlignText($"Health: {gladiator.currentHealth}/{gladiator.health}");
-                if(gladiator.weapon != "")
+                
+                if (gladiator.armorName != "" || gladiator.weapon != "")
                 {
-                    LeftAlignText($"Weapon: {gladiator.weapon}");
-                }
-                if (gladiator.armor != "")
-                {
-                    LeftAlignText($"Armor: {gladiator.armor}");
+                    LeftAlignText($"Items: {gladiator.armorName}, {gladiator.weapon}");
+                    LeftAlignText($"Armor: {gladiator.armorRating}");
                 }
                 if (location != "arena")
                 {
                     LeftAlignText($"Gold: {gladiator.gold}");
                     LeftAlignText($"SkillPoints: {gladiator.skillPoints}");
+                    LeftAlignText($"Strength: {gladiator.strength}");
+                    LeftAlignText($"Agility: {gladiator.agility}");
                 }
             Console.ResetColor();
             }

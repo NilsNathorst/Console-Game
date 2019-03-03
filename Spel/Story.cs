@@ -224,6 +224,7 @@ namespace Spel
                             }
                         }
                             break;
+
                         case "infirmary":
                         running = true;
                         while (running)
@@ -246,6 +247,51 @@ namespace Spel
 
                         }
                              break;
+                    case "training":
+                        running = true;
+                        while (running)
+                        {
+                            Console.Clear();
+                            Training.TrainingDefault();
+                            var input = Console.ReadLine();
+                             if (gladiators[0].skillPoints <= 0 && input != "4")
+                             {
+                                    Console.Clear();
+                                    TextHandler.PrintCenteredText("You dont have any skillpoints", 24);
+                                    Console.ReadLine();
+                                    this.Location = "town";
+                                    running = false;
+                                    break;
+
+                             }
+                            switch (input)
+                            {
+                                case "1":
+                                    Skillpoints.AddStrength(this.gladiators[0]);
+                                    Console.Clear();
+                                    TextHandler.PrintCenteredText("You feel stronger", 24);
+                                    Console.ReadLine();
+                                    break;
+                                case "2":
+                                    Skillpoints.AddAgility(this.gladiators[0]);
+                                    Console.Clear();
+                                    TextHandler.PrintCenteredText("You feel faster", 24);
+                                    Console.ReadLine();
+                                    break;
+                                case "3":
+                                    Skillpoints.AddStamina(this.gladiators[0]);
+                                    Console.Clear();
+                                    TextHandler.PrintCenteredText("You feel larger", 24);
+                                    Console.ReadLine();
+                                    break;
+                                case "4":
+                                    this.Location = "town";
+                                    running = false;
+                                    break;
+                            }
+                            break;
+                        }
+                        break;
                 }
 
 

@@ -12,46 +12,55 @@ namespace Spel
         public int attack { get; set; }
         public int defence { get; set; }
         public int health { get; set; }
+        public int strength { get; set; }
+        public int agility { get; set; }
         public int currentHealth { get; set; }
         public int gold { get; set; }
         public int skillPoints { get; set; }
         public string weapon { get; set; }
-        public string armor { get; set; }
+        public int weaponDamage { get; set; }
+        public int armorRating { get; set; }
+        public string armorName { get; set; }
 
-
-
-
-        public Gladiator(string name, int attack, int defence, int health, int gold = 0, int skillPoints = 0, string weapon = "", string armor = "")
+        public Gladiator(string name, int attack, int defence, int health, int gold = 0, int skillPoints = 0, string weapon = "", int weaponDamage = 0, string armorName = "", int armorRating = 0, int strength = 1, int agility = 1)
         {
 
             this.name = name;
             this.attack = attack;
+            this.strength = strength;
+            this.agility = agility;
             this.defence = defence;
             this.health = health;
             this.currentHealth = health;
             this.gold = gold;
             this.skillPoints = skillPoints;
             this.weapon = weapon;
-            this.armor = armor;
+            this.weaponDamage = weaponDamage;
+            this.armorName = armorName;
+            this.armorRating = armorRating;
         }
 
         public int AttackMove(Gladiator enemy)
         {
+            var defenceMod = this.defence * this.armorRating;
+            var attackMod = this.strength * this.attack;
             Random random = new Random();
-            int damage = random.Next(this.attack - (this.attack / 2), this.attack + (this.attack / 2));
-            damage = damage - (defence / 3);
+            int damage = random.Next(attackMod - (attackMod / 2), attackMod + (attackMod / 2));
+            damage = damage - (defenceMod / 3);
             enemy.TakeDamage(damage);
             return damage;
         }
 
         public int AddWeaponAttack(Weapon weapon)
         {
+            this.attack -= this.weaponDamage;
             return this.attack += weapon.damage;
         }
 
         public int AddArmor(Armor armor)
         {
-            return this.defence += armor.defence;
+            this.armorRating = 0;
+            return this.armorRating += armor.armor;
         }
 
         public int RemoveGoldForWeapon(Weapon weapon)

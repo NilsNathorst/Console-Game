@@ -14,6 +14,7 @@ namespace Spel
             TextHandler.PrintCenteredText("1. Arena", 4);
             TextHandler.PrintCenteredText("2. Armory");
             TextHandler.PrintCenteredText("3. Infirmary");
+            TextHandler.PrintCenteredText("4. Training");
             TextHandler.PrintGladiatorStats(gladiator, false);
             TextHandler.CenteredCursorPosition();
             var result = Console.ReadLine();
@@ -28,10 +29,12 @@ namespace Spel
                         return "armory";
                     case "3":
                         return "infirmary";
+                    case "4":
+                        return "training";
 
                     default:
-                        //Invalid input
-                        break;
+                        return "town";
+                        
                 }
             }
         }

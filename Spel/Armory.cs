@@ -11,7 +11,7 @@ namespace Spel
         public static void ArmoryDefault()
         {
             TextHandler.PrintHeaderText("Kleggory's Swords and Sandals");
-            TextHandler.PrintCenteredText("1. Weapons", 20);
+            TextHandler.PrintCenteredText("1. Weapons", 4);
             TextHandler.PrintCenteredText("2. Armor");
             TextHandler.PrintCenteredText("3. Back to town");
             TextHandler.CenteredCursorPosition();
@@ -39,7 +39,7 @@ namespace Spel
             {
                 player.RemoveGoldForArmor(armor);
                 player.AddArmor(armor);
-                player.armor = armor.name;
+                player.armorName = armor.name;
             }
             else
             {

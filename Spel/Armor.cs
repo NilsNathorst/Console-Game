@@ -9,14 +9,14 @@ namespace Spel
     public class Armor
     {
         public string name { get; set; }
-        public int defence { get; set; }
+        public int armor { get; set; }
         public int Cost { get; set; }
 
 
-        public Armor(string name, int defence, int Cost)
+        public Armor(string name, int armor, int Cost)
         {
             this.name = name;
-            this.defence = defence;
+            this.armor = armor;
             this.Cost = Cost;
         }
 
