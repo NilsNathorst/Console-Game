@@ -1,0 +1,14 @@
+C:\Users\user\source\repos\Spel\Spel\bin\Debug\Spel.exe.config
+C:\Users\user\source\repos\Spel\Spel\bin\Debug\Spel.exe
+C:\Users\user\source\repos\Spel\Spel\bin\Debug\Spel.pdb
+C:\Users\user\source\repos\Spel\Spel\obj\Debug\Spel.csprojAssemblyReference.cache
+C:\Users\user\source\repos\Spel\Spel\obj\Debug\Spel.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Spel\Spel\obj\Debug\Spel.exe
+C:\Users\user\source\repos\Spel\Spel\obj\Debug\Spel.pdb
+D:\public_html\My Repositories\Console-Game\Spel\bin\Debug\Spel.exe.config
+D:\public_html\My Repositories\Console-Game\Spel\bin\Debug\Spel.exe
+D:\public_html\My Repositories\Console-Game\Spel\bin\Debug\Spel.pdb
+D:\public_html\My Repositories\Console-Game\Spel\obj\Debug\Spel.csprojAssemblyReference.cache
+D:\public_html\My Repositories\Console-Game\Spel\obj\Debug\Spel.csproj.CoreCompileInputs.cache
+D:\public_html\My Repositories\Console-Game\Spel\obj\Debug\Spel.exe
+D:\public_html\My Repositories\Console-Game\Spel\obj\Debug\Spel.pdb

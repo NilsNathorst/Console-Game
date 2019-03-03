@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Spel
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Story story = new Story();
+
+            while (true)
+            {
+
+            }
+        }
+    }
+}
