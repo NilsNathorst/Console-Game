@@ -253,6 +253,8 @@ namespace Spel
                         {
                             Console.Clear();
                             Training.TrainingDefault();
+                            TextHandler.PrintGladiatorStats(gladiators[0], false);
+                            TextHandler.CenteredCursorPosition();
                             var input = Console.ReadLine();
                              if (gladiators[0].skillPoints <= 0 && input != "4")
                              {
