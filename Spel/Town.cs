@@ -13,6 +13,7 @@ namespace Spel
             TextHandler.PrintHeaderText("Beggar's Hole");
             TextHandler.PrintCenteredText("1. Arena", 4);
             TextHandler.PrintCenteredText("2. Armory");
+            TextHandler.PrintCenteredText("3. Infirmary");
             TextHandler.PrintGladiatorStats(gladiator, false);
             TextHandler.CenteredCursorPosition();
             var result = Console.ReadLine();
@@ -25,6 +26,9 @@ namespace Spel
                         return "arena";
                     case "2":
                         return "armory";
+                    case "3":
+                        return "infirmary";
+
                     default:
                         //Invalid input
                         break;

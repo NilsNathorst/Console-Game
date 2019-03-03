@@ -46,6 +46,7 @@
     <Compile Include="Arena.cs" />
     <Compile Include="Armor.cs" />
     <Compile Include="Armory.cs" />
+    <Compile Include="Infirmary.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Gladiator.cs" />
     <Compile Include="TextHandler.cs" />

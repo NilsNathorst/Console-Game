@@ -36,8 +36,8 @@ namespace Spel
             weapons.Add(new Weapon("Infinity Edge", 100, 1000));
 
             armors.Add(new Armor("Leather Shield", 5, 10));
-            armors.Add(new Armor("asd", 5, 10));
-            armors.Add(new Armor("The Fortress", 6000, 100));
+            armors.Add(new Armor("Basic Armor", 10, 15));
+            armors.Add(new Armor("The Fortress", 15, 20));
 
             
             this.GameScreen();
@@ -223,8 +223,33 @@ namespace Spel
                                     break;
                             }
                         }
-                        break;
-            }
+                            break;
+                        case "infirmary":
+                        running = true;
+                        while (running)
+                        {
+
+                            Console.Clear();
+                            Infirmary.InfirmaryDefault(this.gladiators[0]);
+                            var input = Console.ReadLine();
+                            switch (input)
+                            {
+                                case "1":
+                                    Infirmary.Heal(this.gladiators[0]);
+                                    running = false;
+                                    break;
+                                case "3":
+                                    this.Location = "town";
+                                    running = false;
+                                    break;
+                            }
+
+                        }
+                             break;
+                }
+
+
+                
             }
         }
 
