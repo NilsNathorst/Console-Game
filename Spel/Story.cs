@@ -17,29 +17,41 @@ namespace Spel
 
         public Story()
         {
-            gladiators.Add(new Gladiator("Russel", 5, 0, 50, 0));
-            gladiators.Add(new Gladiator("Vincenzo Salvatore", 5, 0, 40));
-            gladiators.Add(new Gladiator("Garbage Beast", 5, 2, 45));
-            gladiators.Add(new Gladiator("Xavier the Reclusive", 10, 4, 72));
-            gladiators.Add(new Gladiator("Krull", 7, 6, 100));
-            gladiators.Add(new Gladiator("Gorion o'Loughlin", 20, 8, 120));
-            gladiators.Add(new Gladiator("Thor, son of Krull", 25, 10, 100));
-            gladiators.Add(new Gladiator("Phranc", 30, 12, 150));
-            gladiators.Add(new Gladiator("Atlas the lost", 40, 14, 50));
-            gladiators.Add(new Gladiator("Yorick", 50, 16, 100));
-            gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 100));
-            gladiators.Add(new Gladiator("Nage of Shackleford", 60, 20, 300));
+            gladiators.Add(new Gladiator("Russel", 5, 0, 50, 1, 1, 50, 10));
+            gladiators.Add(new Gladiator("Vincenzo Salvatore", 5, 0, 50, 3, 2));
+            gladiators.Add(new Gladiator("Garbage Beast", 7, 2, 130, 4, 5));
+            gladiators.Add(new Gladiator("Xavier the Reclusive", 10 , 4, 210, 7, 7));
+            gladiators.Add(new Gladiator("Krull", 15, 6, 290, 10, 10));
+            gladiators.Add(new Gladiator("Gorion o'Loughlin", 20, 8, 370, 13, 14));
+            gladiators.Add(new Gladiator("Thor, son of Krull", 25, 10, 450, 16, 16));
+            gladiators.Add(new Gladiator("Phranc", 30, 12, 530, 21, 22));
+            gladiators.Add(new Gladiator("Atlas the lost", 40, 14, 610, 26, 27));
+            gladiators.Add(new Gladiator("Yorick", 50, 16, 690, 32, 32));
+            gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 770, 37, 38));
+            gladiators.Add(new Gladiator("Nage of Shackleford", 60, 20, 850, 44, 44));
 
-            weapons.Add(new Weapon("A Fish", 1, 10));
-            weapons.Add(new Weapon("The Executioner", 50, 300));
-            weapons.Add(new Weapon("Longsword of Xavius the third", 70, 500));
-            weapons.Add(new Weapon("Infinity Edge", 100, 1000));
+            weapons.Add(new Weapon("A Fish", 4, 20));
+            weapons.Add(new Weapon("Wooden Sword", 7, 45));
+            weapons.Add(new Weapon("Gladius", 11, 85));
+            weapons.Add(new Weapon("Spear", 16, 150));
+            weapons.Add(new Weapon("Minotaur Axe", 23, 250));
+            weapons.Add(new Weapon("Huge Boulder", 32, 380));
+            weapons.Add(new Weapon("The Executioner", 44, 550));
+            weapons.Add(new Weapon("Longsword of Xavius the third", 57, 780));
+            weapons.Add(new Weapon("Big Hammer", 73, 1000));
+            weapons.Add(new Weapon("Prometheus' Blade 'Flame of the Gods'", 100, 1380));
 
-            armors.Add(new Armor("Leather Shield", 5, 10));
-            armors.Add(new Armor("Basic Armor", 10, 15));
-            armors.Add(new Armor("The Fortress", 15, 20));
+            armors.Add(new Armor("Quilted Armor", 10, 18));
+            armors.Add(new Armor("Boiled Leather Harness", 20, 50));
+            armors.Add(new Armor("Bronzed Battleplate", 30, 80));
+            armors.Add(new Armor("Ring Mail", 50, 175));
+            armors.Add(new Armor("Light Plate", 70, 280));
+            armors.Add(new Armor("Iron Hauberk", 90, 420));
+            armors.Add(new Armor("Ancient Armor", 120, 600));
+            armors.Add(new Armor("Fierce Bone Vest", 150, 800));
+            armors.Add(new Armor("The Fortress 'Pride of Troy'", 190, 1025));
+            armors.Add(new Armor("Skin of Achilles", 250, 1500));
 
-            
             this.GameScreen();
             this.Introduction();
             this.ChapterOne();
@@ -74,6 +86,7 @@ namespace Spel
                                 TextHandler.PrintCenteredText("You have gained gold and experience");
                                 this.gladiators[0].skillPoints += 5;
                                 this.gladiators[0].gold += 100;
+                                this.gladiators[0].gold = (this.gladiators[0].gold * 3) / 2;
                                 Console.ReadLine();
                                 this.gladiators.Remove(this.gladiators[1]);
                                 this.Location = "town";
@@ -179,23 +192,25 @@ namespace Spel
                             int i = 0;
                             Console.Clear();
                             Armory.ArmoryDefault();
+                            TextHandler.PrintGladiatorStats(gladiators[0], false);
                             var input = Console.ReadLine();
                             switch (input)
                             {
                                 case "1":
                                     Console.Clear();
-                                    TextHandler.PrintCenteredText("", 8);
+                                    TextHandler.PrintGladiatorStats(gladiators[0], false);
+                                    TextHandler.PrintCenteredText("", -18);
                                     foreach (var weapon in this.weapons)
                                     {
                                         i++;
                                         TextHandler.PrintCenteredText("", 1);
                                         Console.ForegroundColor = ConsoleColor.Green;
                                         TextHandler.PrintCenteredText(i.ToString());
-                                        TextHandler.PrintCenteredText("", 1);
+                     
                                         Console.ResetColor();
                                         TextHandler.PrintWeaponInfo(weapon);
                                     }
-                                    TextHandler.PrintCenteredText("5. Go back", 2);
+                                    TextHandler.PrintCenteredText("11. Go back", 2);
                                     TextHandler.CenteredCursorPosition();
                                     input = Console.ReadLine();
                                     switch (input)
@@ -207,12 +222,30 @@ namespace Spel
                                             Armory.BuyWeapon(gladiators[0], weapons[1]);
                                             break;
                                         case "3":
-                                            Armory.BuyWeapon(gladiators[0], weapons[1]);
+                                            Armory.BuyWeapon(gladiators[0], weapons[2]);
                                             break;
                                         case "4":
-                                            Armory.BuyWeapon(gladiators[0], weapons[1]);
+                                            Armory.BuyWeapon(gladiators[0], weapons[3]);
                                             break;
                                         case "5":
+                                            Armory.BuyWeapon(gladiators[0], weapons[4]);
+                                            break;
+                                        case "6":
+                                            Armory.BuyWeapon(gladiators[0], weapons[5]);
+                                            break;
+                                        case "7":
+                                            Armory.BuyWeapon(gladiators[0], weapons[6]);
+                                            break;
+                                        case "8":
+                                            Armory.BuyWeapon(gladiators[0], weapons[7]);
+                                            break;
+                                        case "9":
+                                            Armory.BuyWeapon(gladiators[0], weapons[8]);
+                                            break;
+                                        case "10":
+                                            Armory.BuyWeapon(gladiators[0], weapons[9]);
+                                            break;
+                                        case "11":
                                             running = false;
                                             break;
                                         default:
@@ -223,7 +256,8 @@ namespace Spel
 
                                 case "2":
                                     Console.Clear();
-                                    TextHandler.PrintCenteredText("", 8);
+                                    TextHandler.PrintGladiatorStats(gladiators[0], false);
+                                    TextHandler.PrintCenteredText("", -18);
                                     int j = 0;
                                     foreach (var armor in this.armors)
                                     {
@@ -231,12 +265,11 @@ namespace Spel
                                         TextHandler.PrintCenteredText("", 1);
                                         Console.ForegroundColor = ConsoleColor.Green;
                                         TextHandler.PrintCenteredText(j.ToString());
-                                        TextHandler.PrintCenteredText("", 1);
                                         Console.ResetColor();
                                         TextHandler.PrintArmorInfo(armor);
                                     }
 
-                                    TextHandler.PrintCenteredText("4. Go back", 2);
+                                    TextHandler.PrintCenteredText("11. Go back", 2);
                                     TextHandler.CenteredCursorPosition();
                                     input = Console.ReadLine();
                                     switch (input)
@@ -251,6 +284,27 @@ namespace Spel
                                             Armory.BuyArmor(gladiators[0], armors[2]);
                                             break;
                                         case "4":
+                                            Armory.BuyArmor(gladiators[0], armors[3]);
+                                            break;
+                                        case "5":
+                                            Armory.BuyArmor(gladiators[0], armors[4]);
+                                            break;
+                                        case "6":
+                                            Armory.BuyArmor(gladiators[0], armors[5]);
+                                            break;
+                                        case "7":
+                                            Armory.BuyArmor(gladiators[0], armors[6]);
+                                            break;
+                                        case "8":
+                                            Armory.BuyArmor(gladiators[0], armors[7]);
+                                            break;
+                                        case "9":
+                                            Armory.BuyArmor(gladiators[0], armors[8]);
+                                            break;
+                                        case "10":
+                                            Armory.BuyArmor(gladiators[0], armors[9]);
+                                            break;
+                                        case "11":
                                             running = false;
                                             break;
                                         default:

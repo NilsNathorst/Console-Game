@@ -22,7 +22,7 @@ namespace Spel
         public int armorRating { get; set; } 
         public string armorName { get; set; } 
 
-        public Gladiator(string name, int attack, int defence, int health, int strength = 1, int agility = 1, int gold = 0, int skillPoints = 0, string weapon = "", int weaponDamage = 0, string armorName = "", int armorRating = 0)
+        public Gladiator(string name, int attack, int defence, int health, int strength = 1, int agility = 1, int gold = 0, int skillPoints = 0, string weapon = "Wooden Club", int weaponDamage = 0, string armorName = "Ragged Clothes", int armorRating = 0)
         {
             this.name = name;
             this.attack = attack;
