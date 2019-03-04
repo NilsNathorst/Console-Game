@@ -17,7 +17,8 @@ namespace Spel
         public static void ChooseAction()
         {
                 TextHandler.PrintCenteredText("1. Attack");
-                TextHandler.PrintCenteredText("2. Run");
+                TextHandler.PrintCenteredText("2. Heavy Attack");
+                TextHandler.PrintCenteredText("3. Run");
                 TextHandler.CenteredCursorPosition();
         }
     }

@@ -26,7 +26,7 @@ namespace Spel
             gladiators.Add(new Gladiator("Thor, son of Krull", 25, 10, 100));
             gladiators.Add(new Gladiator("Phranc", 30, 12, 150));
             gladiators.Add(new Gladiator("Atlas the lost", 40, 14, 50));
-            gladiators.Add(new Gladiator("Kay Kay", 50, 16, 100));
+            gladiators.Add(new Gladiator("Yorick", 50, 16, 100));
             gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 100));
             gladiators.Add(new Gladiator("Nage of Shackleford", 60, 20, 300));
 
@@ -60,6 +60,7 @@ namespace Spel
                     case "arena":
                         var running = true;
                         bool playerTurn = false;
+                        bool isHeavyAttack = false;
                         bool enemyTurn = false;
                         var displayDamage = "";
                         while (running)
@@ -92,6 +93,16 @@ namespace Spel
                                     playerTurn = true;
                                     break;
                                 case "2":
+                                    playerTurn = true;
+                                    isHeavyAttack = true;
+                                    break;
+                                case "3":
+                                    Console.Clear();
+                                    TextHandler.PrintCenteredText("You scatter gold all around you whilst fleeing for the arena", 24);
+                                    TextHandler.PrintCenteredText($"You have lost {this.gladiators[0].gold / 2} gold");
+                                    Console.ResetColor();
+                                    this.gladiators[0].gold = this.gladiators[0].gold / 2;
+                                    Console.ReadKey();
                                     this.Location = "town";
                                     running = false;
                                     break;
@@ -99,10 +110,26 @@ namespace Spel
 
                             if (playerTurn)
                             {
+                                string damageDealt = "";
+                                if (!isHeavyAttack)
+                                {
+                                    damageDealt = this.gladiators[0].AttackMove(this.gladiators[1]);
+                                }
+                                if (isHeavyAttack)
+                                {
+                                    damageDealt = this.gladiators[0].HeavyAttack(this.gladiators[1]);
+                                }
                                 Console.Clear();
-                                int damageDealt = this.gladiators[0].AttackMove(this.gladiators[1]);
-                                displayDamage = $"{this.gladiators[0].name} hits {this.gladiators[1].name} for {damageDealt} damage";
+                                displayDamage = $"{this.gladiators[0].name}{damageDealt}";
                                 Arena.DisplayStats(this.gladiators[0], this.gladiators[1]);
+                                if (displayDamage.Contains("critically") == true)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                }
+                                if (displayDamage.Contains("dodged") == true)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                }
                                 TextHandler.PrintCenteredText(displayDamage);
                                 Console.ReadLine();
 
@@ -120,9 +147,17 @@ namespace Spel
                             if (enemyTurn)
                             {
                                 Console.Clear();
-                                int damageDealt = this.gladiators[1].AttackMove(this.gladiators[0]);
-                                displayDamage = $"{this.gladiators[1].name} hits {this.gladiators[0].name} {damageDealt} damage";
+                                string damageDealt = this.gladiators[1].AttackMove(this.gladiators[0]);
+                                displayDamage = $"{this.gladiators[1].name}{damageDealt}";
                                 Arena.DisplayStats(this.gladiators[0], this.gladiators[1]);
+                                if (displayDamage.Contains("critically") == true)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                }
+                                if (displayDamage.Contains("dodged") == true)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                }
                                 TextHandler.PrintCenteredText(displayDamage);
                                 Console.ReadLine();
                                 enemyTurn = false;
@@ -160,8 +195,8 @@ namespace Spel
                                         Console.ResetColor();
                                         TextHandler.PrintWeaponInfo(weapon);
                                     }
-
-                                    Console.SetCursorPosition(76, 43);
+                                    TextHandler.PrintCenteredText("5. Go back", 2);
+                                    TextHandler.CenteredCursorPosition();
                                     input = Console.ReadLine();
                                     switch (input)
                                     {
@@ -178,6 +213,7 @@ namespace Spel
                                             Armory.BuyWeapon(gladiators[0], weapons[1]);
                                             break;
                                         case "5":
+                                            running = false;
                                             break;
                                         default:
                                             break;
@@ -200,7 +236,8 @@ namespace Spel
                                         TextHandler.PrintArmorInfo(armor);
                                     }
 
-                                    Console.SetCursorPosition(76, 43);
+                                    TextHandler.PrintCenteredText("4. Go back", 2);
+                                    TextHandler.CenteredCursorPosition();
                                     input = Console.ReadLine();
                                     switch (input)
                                     {
@@ -209,6 +246,12 @@ namespace Spel
                                             break;
                                         case "2":
                                             Armory.BuyArmor(gladiators[0], armors[1]);
+                                            break;
+                                        case "3":
+                                            Armory.BuyArmor(gladiators[0], armors[2]);
+                                            break;
+                                        case "4":
+                                            running = false;
                                             break;
                                         default:
                                             break;
@@ -239,7 +282,7 @@ namespace Spel
                                     Infirmary.Heal(this.gladiators[0]);
                                     running = false;
                                     break;
-                                case "3":
+                                case "2":
                                     this.Location = "town";
                                     running = false;
                                     break;
