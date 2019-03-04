@@ -104,6 +104,7 @@ namespace Spel
                             {
                                 case "1":
                                     playerTurn = true;
+                                    isHeavyAttack = false;
                                     break;
                                 case "2":
                                     playerTurn = true;
