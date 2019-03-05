@@ -41,14 +41,14 @@ namespace Spel
 
         public string AttackMove(Gladiator enemy)
         {
-            var IsCriticalHit = CritMod(this.strength);
+            var IsCriticalHit = CritMod(this.agility);
             var IsDodge = DodgeMod(enemy.agility);
             var defenceMod = this.agility + this.defence;
             var attackMod = this.strength + this.attack;
             Random random = new Random();
             int damage = random.Next(attackMod - (attackMod / 2), attackMod + (attackMod / 2));
             damage = damage * IsCriticalHit;
-            damage = damage - (defenceMod / 3);
+            damage = damage - (defenceMod / 2);
             damage = damage * IsDodge;
             enemy.TakeDamage(damage);
             var output = $" hit {enemy.name} for {damage} damage";
@@ -64,15 +64,16 @@ namespace Spel
             }
             return output;
         }
+
         public string HeavyAttack(Gladiator enemy)
         {
-            var IsCriticalHit = CritMod(this.strength);
-            var IsDodge = DodgeMod(enemy.agility + 30);
+            var IsCriticalHit = CritMod(this.agility);
+            var IsDodge = DodgeMod(enemy.agility + 50 - this.strength);
             var defenceMod = this.defence * this.armorRating;
-            var attackMod = (this.strength / 2 + 1) * this.attack;
+            var attackMod = (this.strength * 3 / 2) + this.attack;
             Random random = new Random();
             int damage = random.Next(attackMod - (attackMod / 2), attackMod + (attackMod / 2));
-            damage = damage * IsCriticalHit + this.strength * 3;
+            damage = (damage * IsCriticalHit) + (this.strength * 3 / 2);
             damage = damage * IsDodge;
             enemy.TakeDamage(damage);
             var output = $"'s Heavy Attack hit {enemy.name} for {damage} damage";
@@ -88,12 +89,13 @@ namespace Spel
             }
             return output;
         }
-        public static int CritMod(int strength)
+
+        public static int CritMod(int agility)
         {
             var modifier = 1;
             Random random = new Random();
             int critChance = random.Next(1, 100);
-            if (critChance < strength)
+            if (critChance < agility + 10)
             {
                 modifier = 2;
             }
@@ -104,7 +106,7 @@ namespace Spel
             var modifier = 1;
             Random random = new Random();
             int critChance = random.Next(1, 100);
-            if (critChance < agility)
+            if (critChance < agility + 10)
             {
                 modifier = 0;
             }

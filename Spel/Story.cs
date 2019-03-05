@@ -17,18 +17,18 @@ namespace Spel
 
         public Story()
         {
-            gladiators.Add(new Gladiator("Russel", 5, 0, 50, 1, 1, 50, 10));
-            gladiators.Add(new Gladiator("Vincenzo Salvatore", 5, 0, 50, 3, 2));
-            gladiators.Add(new Gladiator("Garbage Beast", 7, 2, 130, 4, 5));
-            gladiators.Add(new Gladiator("Xavier the Reclusive", 10 , 4, 210, 7, 7));
-            gladiators.Add(new Gladiator("Krull", 15, 6, 290, 10, 10));
-            gladiators.Add(new Gladiator("Gorion o'Loughlin", 20, 8, 370, 13, 14));
-            gladiators.Add(new Gladiator("Thor, son of Krull", 25, 10, 450, 16, 16));
-            gladiators.Add(new Gladiator("Phranc", 30, 12, 530, 21, 22));
-            gladiators.Add(new Gladiator("Atlas the lost", 40, 14, 610, 26, 27));
-            gladiators.Add(new Gladiator("Yorick", 50, 16, 690, 32, 32));
-            gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 770, 37, 38));
-            gladiators.Add(new Gladiator("Nage of Shackleford", 60, 20, 850, 44, 44));
+            gladiators.Add(new Gladiator("Russel", 5, 0, 50, 1, 1, 0, 10));
+            gladiators.Add(new Gladiator("Vincenzo Salvatore", 5, 0, 50, 3, 2, 50));
+            gladiators.Add(new Gladiator("Garbage Beast", 7, 2, 130, 4, 5, 100));
+            gladiators.Add(new Gladiator("Xavier the Reclusive", 10 , 4, 210, 7, 7, 150));
+            gladiators.Add(new Gladiator("Krull", 15, 6, 290, 10, 10, 200));
+            gladiators.Add(new Gladiator("Gorion o'Loughlin", 20, 8, 370, 13, 14, 250));
+            gladiators.Add(new Gladiator("Thor, son of Krull", 25, 10, 450, 16, 16, 300));
+            gladiators.Add(new Gladiator("Phranc", 30, 12, 530, 21, 22, 350));
+            gladiators.Add(new Gladiator("Atlas the lost", 40, 14, 610, 26, 27, 400));
+            gladiators.Add(new Gladiator("Yorick", 50, 16, 690, 32, 32, 450));
+            gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 770, 37, 38, 500));
+            gladiators.Add(new Gladiator("Nage of Shackleford", 60, 20, 850, 44, 44, 9999));
 
             weapons.Add(new Weapon("A Fish", 4, 20));
             weapons.Add(new Weapon("Wooden Sword", 7, 45));
@@ -85,7 +85,7 @@ namespace Spel
                                 TextHandler.PrintCenteredText($"You chopped off {this.gladiators[1].name}'s head", 30);
                                 TextHandler.PrintCenteredText("You have gained gold and experience");
                                 this.gladiators[0].skillPoints += 5;
-                                this.gladiators[0].gold += 100;
+                                this.gladiators[0].gold += this.gladiators[1].gold;
                                 this.gladiators[0].gold = (this.gladiators[0].gold * 3) / 2;
                                 Console.ReadLine();
                                 this.gladiators.Remove(this.gladiators[1]);
@@ -96,7 +96,7 @@ namespace Spel
 
                             Arena.DisplayStats(this.gladiators[0], this.gladiators[1]);
 
-                            Arena.ChooseAction();
+                            Arena.ChooseAction(this.gladiators[0],this.gladiators[1]);
 
                             var input = Console.ReadLine();
 
@@ -329,6 +329,14 @@ namespace Spel
                         {
 
                             Console.Clear();
+                            if (gladiators[0].currentHealth == gladiators[0].health)
+                            {
+                                TextHandler.PrintCenteredText("You already have full health", 24);
+                                Console.ReadKey();
+                                running = false;
+                                this.Location = "town";
+                                break;
+                            }
                             Infirmary.InfirmaryDefault(this.gladiators[0]);
                             var input = Console.ReadLine();
                             switch (input)
@@ -354,6 +362,26 @@ namespace Spel
                                     running = false;
                                     break;
                                 case "2":
+                                    if (gladiators[0].currentHealth == gladiators[0].health)
+                                    {
+                                        Console.Clear();
+                                        TextHandler.PrintCenteredText("You already have full health", 24);
+                                        Console.ReadKey();
+                                        running = false;
+                                        break;
+                                    }
+                                    if (gladiators[0].gold < 20)
+                                    {
+                                        Console.Clear();
+                                        TextHandler.PrintCenteredText("You cannot afford this right now", 24);
+                                        Console.ReadKey();
+                                        running = false;
+                                        break;
+                                    }
+                                    Infirmary.LesserHeal(gladiators[0]);
+                                    running = false;
+                                    break;
+                                case "3":
                                     this.Location = "town";
                                     running = false;
                                     break;

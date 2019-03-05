@@ -14,12 +14,14 @@ namespace Spel
             TextHandler.PrintGladiatorStats(enemy, true, "arena");
         }
 
-        public static void ChooseAction()
+        public static void ChooseAction(Gladiator player, Gladiator enemy)
         {
-                TextHandler.PrintCenteredText("1. Attack");
-                TextHandler.PrintCenteredText("2. Heavy Attack");
-                TextHandler.PrintCenteredText("3. Run");
-                TextHandler.CenteredCursorPosition();
+            var toHit = 100 - enemy.agility - 10;
+            TextHandler.PrintCenteredText($"1. Attack {toHit} %");
+            toHit = (50 - enemy.agility - 10) + player.strength;
+            TextHandler.PrintCenteredText($"2. Heavy Attack {toHit} %");
+            TextHandler.PrintCenteredText("3. Run");
+            TextHandler.CenteredCursorPosition();
         }
     }
     

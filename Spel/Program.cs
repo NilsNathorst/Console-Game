@@ -11,11 +11,9 @@ namespace Spel
 
         static void Main(string[] args)
         {
-            Story story = new Story();
-
             while (true)
             {
-
+                Story story = new Story();
             }
         }
     }

@@ -12,8 +12,9 @@ namespace Spel
         {
             var MissingHealth = player.health - player.currentHealth;
             TextHandler.PrintHeaderText("John the Saints Infirmary");
-            TextHandler.PrintCenteredText($"1. Full Heal: {MissingHealth + 20}", 4);
-            TextHandler.PrintCenteredText("2. Back to town");
+            TextHandler.PrintCenteredText($"1. Full Heal. Heal to full for {MissingHealth + 20}", 4);
+            TextHandler.PrintCenteredText($"2. Lesser Heal. Heal {player.gold - 20} for {player.gold}");
+            TextHandler.PrintCenteredText("3. Back to town");
             TextHandler.CenteredCursorPosition();
         }
 
@@ -21,6 +22,11 @@ namespace Spel
         {
             player.gold -= player.health - player.currentHealth + 20;
             player.currentHealth = player.health;
+        }
+        public static void LesserHeal(Gladiator player)
+        {
+            player.currentHealth += player.gold - 20;
+            player.gold = 0;
         }
     }
 }

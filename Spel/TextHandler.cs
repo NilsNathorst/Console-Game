@@ -72,25 +72,30 @@ namespace Spel
             }
             else if (!npc)
             {
-            Console.SetCursorPosition(0, 20);
-            Console.ForegroundColor = ConsoleColor.Green;
-            LeftAlignText($"== {gladiator.name} ==",4);
-            LeftAlignText($"Attack: {gladiator.attack}");
-            LeftAlignText($"Defence: {gladiator.defence}");
-            LeftAlignText($"Health: {gladiator.currentHealth}/{gladiator.health}");
-                
-                if (gladiator.armorName != "" || gladiator.weapon != "")
-                {
-                    LeftAlignText($"Items: {gladiator.armorName}, {gladiator.weapon}");
-                    LeftAlignText($"Armor: {gladiator.armorRating}");
-                }
-                if (location != "arena")
-                {
-                    LeftAlignText($"Gold: {gladiator.gold}");
-                    LeftAlignText($"SkillPoints: {gladiator.skillPoints}");
-                    LeftAlignText($"Strength: {gladiator.strength}");
-                    LeftAlignText($"Agility: {gladiator.agility}");
-                }
+                Console.SetCursorPosition(0, 20);
+                Console.ForegroundColor = ConsoleColor.Green;
+                LeftAlignText($"== {gladiator.name} ==",4);
+                LeftAlignText($"Attack: {gladiator.attack}");
+                LeftAlignText($"Defence: {gladiator.defence}");
+                LeftAlignText($"Health: {gladiator.currentHealth}/{gladiator.health}");
+                    if (gladiator.armorName != "" || gladiator.weapon != "")
+                    {
+                        LeftAlignText($"Items: {gladiator.armorName}, {gladiator.weapon}");
+                        LeftAlignText($"Armor: {gladiator.armorRating}");
+                    }
+                    if (location != "arena")
+                    {
+                        LeftAlignText($"Gold: {gladiator.gold}");
+                        LeftAlignText($"SkillPoints: {gladiator.skillPoints}");
+                        LeftAlignText($"Strength: {gladiator.strength}");
+                        LeftAlignText($"Agility: {gladiator.agility}");
+                    }
+                    if (location == "arena")
+                    {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    LeftAlignText($"Crit %: {gladiator.agility + 10}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    }
             Console.ResetColor();
             }
         }
