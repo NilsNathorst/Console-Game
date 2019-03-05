@@ -18,17 +18,17 @@ namespace Spel
         public Story()
         {
             gladiators.Add(new Gladiator("Russel", 5, 0, 50, 1, 1, 0, 10));
-            gladiators.Add(new Gladiator("Vincenzo Salvatore", 5, 0, 50, 3, 2, 50));
-            gladiators.Add(new Gladiator("Garbage Beast", 7, 2, 130, 4, 5, 100));
-            gladiators.Add(new Gladiator("Xavier the Reclusive", 10 , 4, 210, 7, 7, 150));
-            gladiators.Add(new Gladiator("Krull", 15, 6, 290, 10, 10, 200));
-            gladiators.Add(new Gladiator("Gorion o'Loughlin", 20, 8, 370, 13, 14, 250));
-            gladiators.Add(new Gladiator("Thor, son of Krull", 25, 10, 450, 16, 16, 300));
-            gladiators.Add(new Gladiator("Phranc", 30, 12, 530, 21, 22, 350));
-            gladiators.Add(new Gladiator("Atlas the lost", 40, 14, 610, 26, 27, 400));
-            gladiators.Add(new Gladiator("Yorick", 50, 16, 690, 32, 32, 450));
-            gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 770, 37, 38, 500));
-            gladiators.Add(new Gladiator("Nage of Shackleford", 60, 20, 850, 44, 44, 9999));
+            gladiators.Add(new Gladiator("Father O’Farter", 3, 0, 50, 3, 2, 50));
+            gladiators.Add(new Gladiator("Garbage Beast", 5, 2, 110, 4, 5, 110));
+            gladiators.Add(new Gladiator("Xavier the Reclusive", 7 , 4, 150, 7, 7, 170));
+            gladiators.Add(new Gladiator("Krull", 12, 6, 210, 10, 10, 230));
+            gladiators.Add(new Gladiator("Gorion o'Loughlin", 17, 8, 290, 13, 14, 290));
+            gladiators.Add(new Gladiator("Thor, son of Krull", 20, 10, 370, 16, 16, 350));
+            gladiators.Add(new Gladiator("Phranc", 25, 12, 530, 21, 22, 410));
+            gladiators.Add(new Gladiator("Atlas the lost", 32, 14, 610, 26, 27, 470));
+            gladiators.Add(new Gladiator("Yorick", 42, 16, 690, 32, 32, 530));
+            gladiators.Add(new Gladiator("The Missing Rasta", 55, 18, 770, 37, 38, 590));
+            gladiators.Add(new Gladiator("Zeus 'God of Thunder, God King of Olympus, Slayer of man", 100, 20, 2000, 44, 55, 9999));
 
             weapons.Add(new Weapon("A Fish", 4, 20));
             weapons.Add(new Weapon("Wooden Sword", 7, 45));
@@ -42,7 +42,7 @@ namespace Spel
             weapons.Add(new Weapon("Prometheus' Blade 'Flame of the Gods'", 100, 1380));
 
             armors.Add(new Armor("Quilted Armor", 10, 18));
-            armors.Add(new Armor("Boiled Leather Harness", 20, 50));
+            armors.Add(new Armor("Boiled Elk Vest", 20, 50));
             armors.Add(new Armor("Bronzed Battleplate", 30, 80));
             armors.Add(new Armor("Ring Mail", 50, 175));
             armors.Add(new Armor("Light Plate", 70, 280));
@@ -75,6 +75,7 @@ namespace Spel
                         bool isHeavyAttack = false;
                         bool enemyTurn = false;
                         var displayDamage = "";
+
                         while (running)
                         {
 
@@ -82,11 +83,46 @@ namespace Spel
 
                             if (this.gladiators[1].currentHealth <= 0)
                             {
-                                TextHandler.PrintCenteredText($"You chopped off {this.gladiators[1].name}'s head", 30);
-                                TextHandler.PrintCenteredText("You have gained gold and experience");
+                                if (this.gladiators[1].name.Contains("Zeus"))
+                                {
+                                    Console.Clear();
+                                    TextHandler.PrintCenteredText("You have defeated all the gladiators", 20);
+                                    TextHandler.PrintCenteredText("You have earned the blessing of the gods");
+                                    TextHandler.PrintCenteredText("You shall have your freedom");
+                                    TextHandler.PrintCenteredText("You may return to england...for now.");
+                                    Console.ReadLine();
+                                    System.Environment.Exit(1);
+
+
+                                }
+                                this.gladiators[0].enemiesDefeated += 1;
+                                Console.ResetColor();
+                                TextHandler.PrintCenteredText($"You chopped off {this.gladiators[1].name}'s head", 20);
+                                TextHandler.PrintCenteredText("The crowd roars!");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                TextHandler.PrintCenteredText($"Winnings: {this.gladiators[1].gold} Gold", 1);
+                                Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                TextHandler.PrintCenteredText("== Level Up! ==", 1);
+                                Console.ResetColor();
+                                TextHandler.PrintCenteredText("You gained:", 1);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                TextHandler.PrintCenteredText($"strength + {this.gladiators[0].enemiesDefeated / 2}", 1);
+                                TextHandler.PrintCenteredText($"agility + {this.gladiators[0].enemiesDefeated / 2}");
+                                TextHandler.PrintCenteredText($"attack + 2");
+                                TextHandler.PrintCenteredText($"health + 10");
+                                Console.ResetColor();
+
+                                Console.ResetColor();
+                                this.gladiators[0].strength += (this.gladiators[0].enemiesDefeated / 2);
+                                this.gladiators[0].agility += (this.gladiators[0].enemiesDefeated / 2);
+                                this.gladiators[0].attack += 2;
+                                this.gladiators[0].health += 15;
+                                this.gladiators[0].currentHealth += 10;
+
                                 this.gladiators[0].skillPoints += 5;
                                 this.gladiators[0].gold += this.gladiators[1].gold;
-                                this.gladiators[0].gold = (this.gladiators[0].gold * 3) / 2;
+                                var earnedGold = this.gladiators[0].gold = (this.gladiators[0].gold * 3) / 2;
                                 Console.ReadLine();
                                 this.gladiators.Remove(this.gladiators[1]);
                                 this.Location = "town";
@@ -117,6 +153,8 @@ namespace Spel
                                     Console.ResetColor();
                                     this.gladiators[0].gold = this.gladiators[0].gold / 2;
                                     Console.ReadKey();
+                                    playerTurn = false;
+                                    enemyTurn = false;
                                     this.Location = "town";
                                     running = false;
                                     break;
@@ -194,6 +232,7 @@ namespace Spel
                             Console.Clear();
                             Armory.ArmoryDefault();
                             TextHandler.PrintGladiatorStats(gladiators[0], false);
+                            TextHandler.CenteredCursorPosition();
                             var input = Console.ReadLine();
                             switch (input)
                             {
@@ -329,10 +368,8 @@ namespace Spel
                         {
 
                             Console.Clear();
-                            if (gladiators[0].currentHealth == gladiators[0].health)
+                            if (Infirmary.AlreadyFullHealth(gladiators[0]))
                             {
-                                TextHandler.PrintCenteredText("You already have full health", 24);
-                                Console.ReadKey();
                                 running = false;
                                 this.Location = "town";
                                 break;
@@ -342,12 +379,10 @@ namespace Spel
                             switch (input)
                             {
                                 case "1":
-                                    if (gladiators[0].currentHealth == gladiators[0].health)
+                                    if (Infirmary.AlreadyFullHealth(gladiators[0]))
                                     {
-                                        Console.Clear();
-                                        TextHandler.PrintCenteredText("You already have full health",24);
-                                        Console.ReadKey();
                                         running = false;
+                                        this.Location = "town";
                                         break;
                                     }
                                     if (gladiators[0].gold < gladiators[0].health - gladiators[0].currentHealth +20)
@@ -359,15 +394,14 @@ namespace Spel
                                         break;
                                     }
                                     Infirmary.Heal(this.gladiators[0]);
+                                    this.Location = "town";
                                     running = false;
                                     break;
                                 case "2":
-                                    if (gladiators[0].currentHealth == gladiators[0].health)
+                                    if (Infirmary.AlreadyFullHealth(gladiators[0]))
                                     {
-                                        Console.Clear();
-                                        TextHandler.PrintCenteredText("You already have full health", 24);
-                                        Console.ReadKey();
                                         running = false;
+                                        this.Location = "town";
                                         break;
                                     }
                                     if (gladiators[0].gold < 20)
@@ -379,6 +413,7 @@ namespace Spel
                                         break;
                                     }
                                     Infirmary.LesserHeal(gladiators[0]);
+                                    this.Location = "town";
                                     running = false;
                                     break;
                                 case "3":

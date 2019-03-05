@@ -16,9 +16,12 @@ namespace Spel
 
         public static void ChooseAction(Gladiator player, Gladiator enemy)
         {
-            var toHit = 100 - enemy.agility - 10;
-            TextHandler.PrintCenteredText($"1. Attack {toHit} %");
-            toHit = (50 - enemy.agility - 10) + player.strength;
+            TextHandler.PrintCenteredText($"1. Attack 90 %");
+            var toHit = (33) + player.strength;
+            if (toHit > 100)
+            {
+                toHit = 100;
+            }
             TextHandler.PrintCenteredText($"2. Heavy Attack {toHit} %");
             TextHandler.PrintCenteredText("3. Run");
             TextHandler.CenteredCursorPosition();

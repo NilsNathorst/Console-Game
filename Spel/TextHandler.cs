@@ -64,7 +64,7 @@ namespace Spel
                 Console.ForegroundColor = ConsoleColor.Red;
                 RightAlignText($"== {gladiator.name} ==");
                 RightAlignText($"Attack: {gladiator.attack}");
-                RightAlignText($"Defence: {gladiator.defence}");
+                RightAlignText($"Armor: {gladiator.armorRating}");
                 RightAlignText($"Health: {gladiator.currentHealth}/{gladiator.health}");
                 Console.ResetColor();
                 
@@ -76,12 +76,16 @@ namespace Spel
                 Console.ForegroundColor = ConsoleColor.Green;
                 LeftAlignText($"== {gladiator.name} ==",4);
                 LeftAlignText($"Attack: {gladiator.attack}");
-                LeftAlignText($"Defence: {gladiator.defence}");
+                LeftAlignText($"Armor: {gladiator.armorRating}");
                 LeftAlignText($"Health: {gladiator.currentHealth}/{gladiator.health}");
                     if (gladiator.armorName != "" || gladiator.weapon != "")
                     {
-                        LeftAlignText($"Items: {gladiator.armorName}, {gladiator.weapon}");
-                        LeftAlignText($"Armor: {gladiator.armorRating}");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        LeftAlignText($"== Items ==");
+                        Console.ResetColor();
+                        LeftAlignText($"{gladiator.armorName}");
+                        LeftAlignText($"{gladiator.weapon}");
+                        Console.ForegroundColor = ConsoleColor.Green;
                     }
                     if (location != "arena")
                     {
