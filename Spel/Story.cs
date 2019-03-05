@@ -334,6 +334,22 @@ namespace Spel
                             switch (input)
                             {
                                 case "1":
+                                    if (gladiators[0].currentHealth == gladiators[0].health)
+                                    {
+                                        Console.Clear();
+                                        TextHandler.PrintCenteredText("You already have full health",24);
+                                        Console.ReadKey();
+                                        running = false;
+                                        break;
+                                    }
+                                    if (gladiators[0].gold < gladiators[0].health - gladiators[0].currentHealth +20)
+                                    {
+                                        Console.Clear();
+                                        TextHandler.PrintCenteredText("You cannot afford this right now", 24);
+                                        Console.ReadKey();
+                                        running = false;
+                                        break;
+                                    }
                                     Infirmary.Heal(this.gladiators[0]);
                                     running = false;
                                     break;

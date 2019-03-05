@@ -22,7 +22,7 @@ namespace Spel
         public static void AddStamina(Gladiator player)
         {
             player.skillPoints -= 1;
-            player.health += 5;
+            player.health += 15;
         }
     }
 }
