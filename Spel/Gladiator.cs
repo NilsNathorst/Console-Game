@@ -42,18 +42,6 @@ namespace Spel
 
         public string AttackMove(Gladiator enemy)
         {
-
-            //var IsCriticalHit = CritMod(this.agility);
-            //var IsDodge = DodgeMod(enemy.agility);
-            //var defenceMod = this.agility + this.defence;
-            //var attackMod = this.strength + this.attack;
-            //Random random = new Random();
-            //int damage = random.Next(attackMod - (attackMod / 2), attackMod + (attackMod / 2));
-            //damage = damage * IsCriticalHit;
-            //damage = damage - (defenceMod / 2);
-            //damage = damage * IsDodge;
-            //enemy.TakeDamage(damage);
-
             var IsCriticalHit = CritMod(this.agility);
             var IsDodge = DodgeMod(10);
             int DamageReduction = this.agility + this.armorRating;
@@ -83,16 +71,6 @@ namespace Spel
 
         public string HeavyAttack(Gladiator enemy)
         {
-            //var IsCriticalHit = CritMod(this.agility);
-            //var IsDodge = DodgeMod(enemy.agility + 40 - this.strength);
-            //var defenceMod = this.defence * this.armorRating;
-            //var attackMod = (this.strength * 3 / 2) + this.attack;
-            //Random random = new Random();
-            //int damage = random.Next(attackMod - (attackMod / 2), attackMod + (attackMod / 2));
-            //damage = (damage * IsCriticalHit) + (this.strength * 3 / 2);
-            //damage = damage * IsDodge;
-            //enemy.TakeDamage(damage);
-
             var IsCriticalHit = CritMod(this.agility);
             var IsDodge = DodgeMod(66 - this.strength);
             int DamageReduction = this.agility + this.armorRating;
