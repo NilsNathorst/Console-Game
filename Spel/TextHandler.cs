@@ -40,12 +40,26 @@ namespace Spel
             Console.ResetColor();
         }
         public static void PrintWeaponInfo(Weapon weapon)
-        {;
+        {
             Console.ForegroundColor = ConsoleColor.Red;
             PrintCenteredText($"== {weapon.name} ==");
             Console.ResetColor();
             PrintCenteredText($"Damage: {weapon.damage}");
             PrintCenteredText($"Cost: {weapon.Cost}");
+        }
+        public static void PrintEnchantment(Enchantments enchantment)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            PrintCenteredText($"== {enchantment.name} ==", 1);
+            Console.ResetColor();
+        }
+        public static void PrintEnchantmentInfo(Enchantments enchantment)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            PrintCenteredText($"== {enchantment.name} ==");
+            Console.ResetColor();
+            PrintCenteredText($"Level: {enchantment.level}");
+            PrintCenteredText($"Cost: {enchantment.Cost}");
         }
         public static void PrintArmorInfo(Armor armor)
         {
@@ -78,28 +92,32 @@ namespace Spel
                 LeftAlignText($"Attack: {gladiator.attack}");
                 LeftAlignText($"Armor: {gladiator.armorRating}");
                 LeftAlignText($"Health: {gladiator.currentHealth}/{gladiator.health}");
-                    if (gladiator.armorName != "" || gladiator.weapon != "")
+
+                if (gladiator.armorName != "" || gladiator.weapon != "")
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    LeftAlignText($"== Items ==");
+                    Console.ResetColor();
+                    LeftAlignText($"{gladiator.armorName}");
+                    LeftAlignText($"{gladiator.weapon}");
+                    if (gladiator.enchantmentName != "")
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        LeftAlignText($"== Items ==");
-                        Console.ResetColor();
-                        LeftAlignText($"{gladiator.armorName}");
-                        LeftAlignText($"{gladiator.weapon}");
-                        Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    LeftAlignText($"{gladiator.enchantmentName}");
+                    LeftAlignText($"{gladiator.enchantmentLevel}");
                     }
-                    if (location != "arena")
-                    {
-                        LeftAlignText($"Gold: {gladiator.gold}");
-                        LeftAlignText($"SkillPoints: {gladiator.skillPoints}");
-                        LeftAlignText($"Strength: {gladiator.strength}");
-                        LeftAlignText($"Agility: {gladiator.agility}");
-                    }
-                    if (location == "arena")
-                    {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    LeftAlignText($"Crit %: {gladiator.agility + 10}");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    }
+                }
+              
+                LeftAlignText($"Gold: {gladiator.gold}");
+                LeftAlignText($"SkillPoints: {gladiator.skillPoints}");
+                LeftAlignText($"Strength: {gladiator.strength}");
+                LeftAlignText($"Agility: {gladiator.agility}");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                LeftAlignText($"Crit %: {gladiator.agility + 10}");
+                LeftAlignText($"Dodge %: {(gladiator.agility % 5) + 10}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                    
             Console.ResetColor();
             }
         }

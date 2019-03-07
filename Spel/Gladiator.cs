@@ -22,8 +22,10 @@ namespace Spel
         public int armorRating { get; set; }
         public string armorName { get; set; }
         public int enemiesDefeated { get; set; }
+        public string enchantmentName { get; set; }
+        public int enchantmentLevel { get; set; }
 
-        public Gladiator(string name, int attack, int armorRating, int health, int strength = 1, int agility = 1, int gold = 0, int skillPoints = 0, string weapon = "Wooden Club", int weaponDamage = 0, string armorName = "Ragged Clothes", int enemiesDefeated = 0)
+        public Gladiator(string name, int attack, int armorRating, int health, int strength = 1, int agility = 1, int gold = 0, int skillPoints = 0, string weapon = "Wooden Club", int weaponDamage = 0, string armorName = "Ragged Clothes", int enemiesDefeated = 0, string enchantmentName = "", int enchantmentlevel = 0)
         {
             this.name = name;
             this.attack = attack;
@@ -38,12 +40,16 @@ namespace Spel
             this.armorName = armorName;
             this.armorRating = armorRating;
             this.enemiesDefeated = enemiesDefeated;
+            this.enchantmentName = enchantmentName;
+            this.enchantmentLevel = enchantmentLevel;
         }
 
         public string AttackMove(Gladiator enemy)
         {
+            string enchMod = "";
             var IsCriticalHit = CritMod(this.agility);
-            var IsDodge = DodgeMod(10);
+            var DodgeChance = (this.agility % 5);
+            var IsDodge = DodgeMod(10 + DodgeChance);
             int DamageReduction = this.agility + this.armorRating;
             int DefenceMod = DamageReduction / 4;
             int StrengthOfAttack = (this.strength * 2) + (this.attack);
@@ -55,12 +61,22 @@ namespace Spel
             int damage = MinOrMax * IsCriticalHit;
             damage -= DefenceMod;
             damage = damage * IsDodge;
+            if (this.enchantmentName == "Lifesteal")
+            {
+                int lifeStolen = damage / 10 * this.enchantmentLevel;
+                this.currentHealth += lifeStolen;
+                if (this.currentHealth > this.health)
+                {
+                    this.currentHealth = this.health;
+                }
+                enchMod = $"+{lifeStolen} HP";
+            }
             enemy.TakeDamage(damage);
 
-            var output = $" hit {enemy.name} for {damage} damage";
+            var output = $" hit {enemy.name} for {damage} damage. {enchMod}";
             if (IsCriticalHit == 2)
             {
-                output = $" critically hit {enemy.name} for {damage} damage";
+                output = $" critically hit {enemy.name} for {damage} damage. {enchMod}";
             }
             if (IsDodge == 0)
             {
@@ -71,6 +87,7 @@ namespace Spel
 
         public string HeavyAttack(Gladiator enemy)
         {
+            string enchMod = "";
             var IsCriticalHit = CritMod(this.agility);
             var IsDodge = DodgeMod(66 - this.strength);
             int DamageReduction = this.agility + this.armorRating;
@@ -88,12 +105,22 @@ namespace Spel
             {
                 damage = 1;
             }
+            if (this.enchantmentName == "Lifesteal")
+            {
+                int lifeStolen = damage / 10 * this.enchantmentLevel;
+                this.currentHealth += lifeStolen;
+                enchMod = $"+{lifeStolen} HP";
+                if (this.currentHealth > this.health)
+                {
+                    this.currentHealth = this.health;
+                }
+            }
             enemy.TakeDamage(damage);
 
-            var output = $"'s Heavy attack hit {enemy.name} for {damage} damage";
+            var output = $"'s Heavy attack hit {enemy.name} for {damage} damage. {enchMod}";
             if (IsCriticalHit == 2)
             {
-                output = $"'s Heavy attack critically hit {enemy.name} for {damage} damage";
+                output = $"'s Heavy attack critically hit {enemy.name} for {damage} damage. {enchMod}";
             }
             if (IsDodge == 0)
             {
@@ -141,6 +168,11 @@ namespace Spel
         public int RemoveGoldForWeapon(Weapon weapon)
         {
             return this.gold -= weapon.Cost;
+        }
+
+        public int RemoveGoldForEnchantment(Enchantments enchantment)
+        {
+            return this.gold -= enchantment.Cost;
         }
 
         public int RemoveGoldForArmor(Armor armor)

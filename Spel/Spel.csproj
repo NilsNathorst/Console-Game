@@ -46,7 +46,9 @@
     <Compile Include="Arena.cs" />
     <Compile Include="Armor.cs" />
     <Compile Include="Armory.cs" />
+    <Compile Include="Enchantments.cs" />
     <Compile Include="Infirmary.cs" />
+    <Compile Include="MagicShop.cs" />
     <Compile Include="Skillpoints.cs" />
     <Compile Include="Training.cs" />
     <Compile Include="Weapon.cs" />

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace Spel
 {
-    public class Weapon
+    public class Enchantments
     {
         public string name { get; set; }
-        public int damage { get; set; }
+        public string type { get; set; }
+        public int level { get; set; }
         public int Cost { get; set; }
 
-        public Weapon(string name, int damage, int Cost)
+
+        public Enchantments(string name, string type, int level, int Cost)
         {
             this.name = name;
-            this.damage = damage;
+            this.type = type;
+            this.level = level;
             this.Cost = Cost;
         }
 

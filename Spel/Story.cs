@@ -12,6 +12,7 @@ namespace Spel
         public List<Gladiator> gladiators = new List<Gladiator>();
         public List<Weapon> weapons = new List<Weapon>();
         public List<Armor> armors = new List<Armor>();
+        public List<Enchantments> enchantments = new List<Enchantments>();
 
         public String Location = "town";
 
@@ -51,6 +52,11 @@ namespace Spel
             armors.Add(new Armor("Fierce Bone Vest", 150, 800));
             armors.Add(new Armor("The Fortress 'Pride of Troy'", 190, 1025));
             armors.Add(new Armor("Skin of Achilles", 250, 1500));
+
+            enchantments.Add(new Enchantments("Lifesteal", "lifesteal", 1, 500));
+            enchantments.Add(new Enchantments("Lifesteal", "lifesteal", 2, 1250));
+            enchantments.Add(new Enchantments("Lifesteal", "lifesteal", 3, 2000));
+
 
             this.GameScreen();
             this.Introduction();
@@ -396,27 +402,8 @@ namespace Spel
                                     Infirmary.Heal(this.gladiators[0]);
                                     this.Location = "town";
                                     running = false;
-                                    break;
+                                    break;  
                                 case "2":
-                                    if (Infirmary.AlreadyFullHealth(gladiators[0]))
-                                    {
-                                        running = false;
-                                        this.Location = "town";
-                                        break;
-                                    }
-                                    if (gladiators[0].gold < 20)
-                                    {
-                                        Console.Clear();
-                                        TextHandler.PrintCenteredText("You cannot afford this right now", 24);
-                                        Console.ReadKey();
-                                        running = false;
-                                        break;
-                                    }
-                                    Infirmary.LesserHeal(gladiators[0]);
-                                    this.Location = "town";
-                                    running = false;
-                                    break;
-                                case "3":
                                     this.Location = "town";
                                     running = false;
                                     break;
@@ -471,9 +458,88 @@ namespace Spel
                             break;
                         }
                         break;
-                }
+                    case "magic shop":
+                        int l = 0;
+                        running = true;
+                        while (running)
+                        {
+                            Console.Clear();
+                            MagicShop.MagicShopDefault();
+                            TextHandler.PrintGladiatorStats(gladiators[0], false);
+                            TextHandler.CenteredCursorPosition();
+                            var input = Console.ReadLine();
+                            switch (input)
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    TextHandler.PrintGladiatorStats(gladiators[0], false);
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    TextHandler.PrintCenteredText("1", -20);
+                                    Console.ResetColor();
+                                    TextHandler.PrintEnchantment(enchantments[0]);
+                                    TextHandler.PrintCenteredText("2. Go back", 2);
+                                    TextHandler.CenteredCursorPosition();
+                                    input = Console.ReadLine();
+                                    switch (input)
+                                    {
+                                        case "1":
+                                            Console.Clear();
+                                            TextHandler.PrintGladiatorStats(gladiators[0], false);
+                                            TextHandler.PrintCenteredText("", -20);
+                                            foreach (var enchantment in this.enchantments)
+                                            {
+                                                l++;
+                                                TextHandler.PrintCenteredText("", 1);
+                                                Console.ForegroundColor = ConsoleColor.Green;
+                                                TextHandler.PrintCenteredText(l.ToString());
+                                                Console.ResetColor();
+                                                TextHandler.PrintEnchantmentInfo(enchantment);
+                                            }
+                                            TextHandler.PrintCenteredText("4. Go to town", 1);
+                                            TextHandler.CenteredCursorPosition();
+                                            input = Console.ReadLine();
+                                            switch (input)
+                                            {
+                                                case "1":
+                                                    MagicShop.BuyEnchantment(gladiators[0],enchantments[0]);
+                                                    break;
+                                                case "2":
+                                                    MagicShop.BuyEnchantment(gladiators[0], enchantments[1]);
+                                                    break;
+                                                case "3":
+                                                    MagicShop.BuyEnchantment(gladiators[0], enchantments[2]);
+                                                    break;
+                                                case "4":
+                                                    this.Location = "town";
+                                                    running = false;
+                                                    break;
+
+                                                default:
+                                                    break;
+                                            }
 
 
+                                            break;
+
+                                        case "2":
+                                            this.Location = "town";
+                                            running = false;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                               break;
+
+                               case "2":
+                                    this.Location = "town";
+                                    running = false;
+                                    break;
+                            }
+                            break;
+ 
+                            }
+                        break;
+                        }
                 
             }
         }

@@ -16,7 +16,9 @@ namespace Spel
 
         public static void ChooseAction(Gladiator player, Gladiator enemy)
         {
-            TextHandler.PrintCenteredText($"1. Attack 90 %");
+            var DodgeChance = (enemy.agility % 5);
+
+            TextHandler.PrintCenteredText($"1. Attack {90 - DodgeChance}  %");
             var toHit = (33) + player.strength;
             if (toHit > 100)
             {
